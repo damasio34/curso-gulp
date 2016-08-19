@@ -6,6 +6,7 @@ var htmlReplace = require('gulp-html-replace');
 var uglify = require('gulp-uglify');
 var usemin = require('gulp-usemin');
 var cssmin = require('gulp-cssmin');
+var browserSync = require('browser-sync');
 
 gulp.task('clean', function() {
     return gulp.src('dist')
@@ -50,6 +51,17 @@ gulp.task('usemin', function() {
 		}))
 		.pipe(gulp.dest('dist'));
 });
+
+gulp.task('serve', function() {
+	browserSync.init({
+		server: {
+			baseDir: 'src'
+		}		
+	});
+
+	gulp.watch('src/**/*')
+		.on('change', browserSync.reload);
+})
 
 gulp.task('default', ['clean'], function() {
 	// gulp.start('build-img', 'build-js', 'build-html');
