@@ -10,6 +10,7 @@ var browserSync = require('browser-sync');
 var jshint = require('gulp-jshint');
 var jshintStylish = require('jshint-stylish');
 var csslint = require('gulp-csslint');
+var autoprefixer = require('gulp-autoprefixer');
 
 gulp.task('clean', function() {
     return gulp.src('dist')
@@ -50,12 +51,13 @@ gulp.task('usemin', function() {
 	gulp.src('src/**/*.html')
 		.pipe(usemin({
 			'js': [uglify],
-			'css': [cssmin]
+			'css': [autoprefixer, cssmin]
 		}))
 		.pipe(gulp.dest('dist'));
 });
 
 gulp.task('serve', function() {
+
 	browserSync.init({
 		server: {
 			baseDir: 'src'
